@@ -1,0 +1,47 @@
+//Maintaing Social Distance
+//Controller is NodeMCU ESP32 interfacing with 
+//Ultrasonic sensor and buzzer.
+int trigger_pin = 12;
+int echo_pin = 14;
+int buzzer = 13;
+long distance;
+float distanceCm;
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(trigger_pin, OUTPUT);
+  pinMode(echo_pin, INPUT);
+  pinMode(buzzer, OUTPUT);
+}
+
+void loop()
+{
+  digitalWrite(trigger_pin, HIGH);
+  delayMicroseconds (10);
+  digitalWrite(trigger_pin, LOW);
+  duartion = pilseIn(echo_pin, HIGH);
+  distanceCm = (duration * 0.034) / 2;
+  Serial.println(distanceCm);
+
+  if(distanceCm <= 50) // our distance is 50cm 
+  {
+    Serial.print("DistanceCm= ");
+    Serial.println(distanceCm);
+    digitalWrite(buzzer, HIGH);
+    delay(1000);
+    Serial.print("ALERT ");
+  }
+  else
+  {
+    Serial.print("DistanceCm= ");
+    Serial.println(distanceCm);
+    digitalWrite(buzzer, LOW);
+    delay(1000);
+    Serial.print("DISTANCE IS MAINTAINED");
+  }
+}
+  
+
+
+
